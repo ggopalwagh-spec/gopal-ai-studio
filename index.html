@@ -7,236 +7,206 @@
 <title>Gopal AI Studio</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#101014;color:white;font-family:Arial,sans-serif}
-header{background:#e52235;padding:22px;text-align:center}
-main{max-width:700px;margin:auto;padding:15px}
-.card{background:#22222a;padding:18px;margin:14px 0;border-radius:14px}
-h2{text-align:center}
-button{background:#e52235;color:white;border:0;padding:13px;border-radius:9px;width:100%;font-size:16px;margin-top:10px}
-input,textarea{width:100%;padding:12px;margin:10px 0;border-radius:8px;border:0}
-video{width:100%;max-height:400px;background:black;border-radius:10px}
-canvas{display:none}
-.status{color:#aaffaa}
-.small{color:#bbb;font-size:13px}
+body{margin:0;background:#09090d;color:#fff;font-family:Arial,sans-serif}
+header{padding:22px 16px;background:linear-gradient(135deg,#240006,#e5092c);text-align:center}
+.logo{font-size:27px;font-weight:900;letter-spacing:1px}
+.logo span{color:#fff}
+header p{color:#ffdce2;font-size:13px;margin-bottom:0}
+nav{display:flex;justify-content:center;gap:22px;padding:14px;background:#15151b;border-bottom:1px solid #303038;font-size:13px}
+nav a{color:#ddd;text-decoration:none}
+main{max-width:850px;margin:auto;padding:18px}
+.hero{text-align:center;padding:24px 10px}
+.hero h1{font-size:28px;margin:5px}
+.hero h1 span{color:#ff294d}
+.hero p{color:#aaa;font-size:14px}
+.tag{display:inline-block;background:#291019;color:#ff647e;border:1px solid #7e1730;border-radius:30px;padding:7px 13px;font-size:12px}
+.card{background:linear-gradient(145deg,#1d1d25,#111116);border:1px solid #33333d;border-radius:17px;padding:20px;margin:17px 0;box-shadow:0 8px 25px #0006}
+.card h2{font-size:19px;margin:0 0 12px}
+.card p{color:#aaa;font-size:13px;line-height:1.5}
+.upload{border:2px dashed #a5223b;border-radius:14px;padding:22px;text-align:center;background:#160e13}
+input[type=file]{width:100%;color:#ccc;margin:12px 0}
+input,textarea{width:100%;background:#292931;color:white;border:1px solid #41414b;padding:13px;border-radius:10px;margin:9px 0;font-size:14px}
+button{width:100%;border:0;border-radius:10px;padding:14px;margin-top:9px;background:linear-gradient(90deg,#e5092c,#ff3657);color:white;font-size:15px;font-weight:bold}
+button.secondary{background:#303039;border:1px solid #555}
+video{width:100%;max-height:400px;background:#000;border-radius:12px;margin-top:12px}
+.status{color:#7dffad;font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tool{background:#22222b;border:1px solid #393943;padding:16px;border-radius:13px}
+.tool b{display:block;margin-bottom:6px}
+footer{text-align:center;padding:25px;color:#777;font-size:12px}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.hero h1{font-size:24px}}
 </style>
 </head>
 <body>
 
 <header>
-<h1>🔥 GOPAL AI STUDIO</h1>
-<p>Your Free AI Video Platform</p>
+<div class="logo">🔥 GOPAL <span>AI STUDIO</span></div>
+<p>CREATE • EDIT • TRANSFORM</p>
 </header>
 
+<nav>
+<a href="#shorts">Shorts</a>
+<a href="#caption">Captions</a>
+<a href="#voice">AI Voice</a>
+<a href="#textvideo">Text to Video</a>
+</nav>
+
 <main>
-<h2>Create Videos With AI</h2>
-<p class="status" id="status">Checking API...</p>
+<section class="hero">
+<span class="tag">✦ YOUR CREATIVE AI WORKSPACE</span>
+<h1>CREATE <span>AMAZING</span> VIDEOS</h1>
+<p>आपका अपना AI Video Creation Studio</p>
+<p class="status" id="status">API Checking...</p>
+</section>
 
-<div class="card">
-<h3>🎬 Video to Shorts</h3>
+<section class="card" id="shorts">
+<h2>🎬 Video to Shorts</h2>
+<p>Gallery से वीडियो चुनें और 9:16 Vertical Shorts बनाएँ।</p>
+<div class="upload">
+<div style="font-size:35px">⬆️</div>
+<b>Upload Your Video</b>
 <input type="file" id="videoFile" accept="video/*">
+</div>
 <video id="video" controls playsinline></video>
-<p class="small">वीडियो अपलोड करें और 9:16 वर्टिकल Shorts बनाएँ।</p>
-<button onclick="startShorts()">Create 9:16 Shorts</button>
-<button onclick="stopShorts()">Stop Recording</button>
+<button onclick="startShorts()">🔥 CREATE 9:16 SHORTS</button>
+<button class="secondary" onclick="stopShorts()">STOP RECORDING</button>
 <p id="shortStatus"></p>
-<canvas id="canvas" width="720" height="1280"></canvas>
+<canvas id="canvas" width="720" height="1280" style="display:none"></canvas>
+</section>
+
+<div class="grid">
+<div class="tool">
+<b>📝 Hindi Captions</b>
+<p>Hindi text caption tool</p>
+</div>
+<div class="tool">
+<b>🎤 AI Voice</b>
+<p>Hindi browser voice</p>
+</div>
+<div class="tool">
+<b>🔗 YouTube Link</b>
+<p>Authorized video link input</p>
+</div>
+<div class="tool">
+<b>🎥 Text to Video</b>
+<p>AI video tool coming soon</p>
+</div>
 </div>
 
-<div class="card">
-<h3>🔗 YouTube Video Link</h3>
-<input id="youtube" placeholder="Paste your authorized YouTube link">
-<p class="small">यहाँ लिंक डाल सकते हैं। अभी लिंक से वीडियो प्रोसेसिंग उपलब्ध नहीं है।</p>
-</div>
-
-<div class="card">
-<h3>📝 Hindi Caption</h3>
-<textarea id="caption" placeholder="अपना टेक्स्ट यहाँ लिखें"></textarea>
-<button onclick="makeCaption()">Generate Caption</button>
+<section class="card" id="caption">
+<h2>📝 Hindi Auto Caption</h2>
+<textarea id="captionText" placeholder="अपना टेक्स्ट यहाँ लिखें..."></textarea>
+<button onclick="makeCaption()">GENERATE CAPTION</button>
 <p id="result"></p>
-<p class="small">अभी API टेक्स्ट को वापस दिखाती है; यह AI speech recognition नहीं है।</p>
-</div>
+<p>नोट: अभी यह API टेक्स्ट वापस दिखाती है, आवाज़ से अपने आप कैप्शन नहीं बनाती।</p>
+</section>
 
-<div class="card">
-<h3>🎤 Hindi AI Voice</h3>
-<textarea id="voice" placeholder="Voice के लिए टेक्स्ट लिखें"></textarea>
-<button onclick="speak()">Generate Voice</button>
-</div>
+<section class="card" id="voice">
+<h2>🎤 Hindi AI Voice</h2>
+<textarea id="voiceText" placeholder="Voice के लिए टेक्स्ट लिखें..."></textarea>
+<button onclick="speak()">GENERATE VOICE</button>
+</section>
 
-<div class="card">
-<h3>🎥 Text to Video</h3>
-<textarea placeholder="अपना वीडियो आइडिया लिखें"></textarea>
-<p class="small">Text-to-Video सुविधा अभी तैयार की जा रही है।</p>
-</div>
+<section class="card">
+<h2>🔗 YouTube Video Link</h2>
+<input id="youtube" placeholder="Paste your authorized YouTube link">
+<p>अभी YouTube लिंक से वीडियो प्रोसेसिंग उपलब्ध नहीं है।</p>
+</section>
+
+<section class="card" id="textvideo">
+<h2>🎥 Text to Video</h2>
+<textarea placeholder="अपना वीडियो आइडिया लिखें..."></textarea>
+<p>Text to Video सुविधा अभी तैयार की जा रही है।</p>
+</section>
 </main>
 
+<footer>© 2026 GOPAL AI STUDIO • MADE WITH ❤️</footer>
+
 <script>
-const API = "https://my-ai-video-api.onrender.com";
+const API="https://my-ai-video-api.onrender.com";
+const video=document.getElementById("video");
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+let recorder=null,chunks=[],animation=null;
 
-const video = document.getElementById("video");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
-let recorder = null;
-let chunks = [];
-let animation = null;
-
-document.getElementById("videoFile").addEventListener("change", function(){
-  const file = this.files[0];
-  if(!file) return;
-
-  video.src = URL.createObjectURL(file);
-  document.getElementById("shortStatus").textContent =
-    "वीडियो तैयार है। अब Create 9:16 Shorts दबाएँ।";
+document.getElementById("videoFile").addEventListener("change",function(){
+ const file=this.files[0];
+ if(!file)return;
+ video.src=URL.createObjectURL(file);
+ document.getElementById("shortStatus").textContent="वीडियो तैयार है। Create Shorts दबाएँ।";
 });
 
-fetch(API + "/api/status")
-.then(r => r.json())
-.then(d => {
-  document.getElementById("status").textContent = "API Connected ✓";
-})
-.catch(() => {
-  document.getElementById("status").textContent = "API Offline";
+fetch(API+"/api/status").then(r=>r.json()).then(()=>{
+ document.getElementById("status").textContent="● API CONNECTED";
+}).catch(()=>{
+ document.getElementById("status").textContent="● API OFFLINE";
 });
 
 function drawFrame(){
-  if(video.readyState >= 2){
-    const vw = video.videoWidth;
-    const vh = video.videoHeight;
-
-    if(vw && vh){
-      const targetRatio = 9/16;
-      const sourceRatio = vw/vh;
-      let sx=0, sy=0, sw=vw, sh=vh;
-
-      if(sourceRatio > targetRatio){
-        sw = vh * targetRatio;
-        sx = (vw-sw)/2;
-      }else{
-        sh = vw / targetRatio;
-        sy = (vh-sh)/2;
-      }
-
-      ctx.drawImage(video,sx,sy,sw,sh,0,0,720,1280);
-    }
+ if(video.readyState>=2){
+  let vw=video.videoWidth,vh=video.videoHeight;
+  if(vw&&vh){
+   let ratio=9/16,sw=vw,sh=vh,sx=0,sy=0;
+   if(vw/vh>ratio){sw=vh*ratio;sx=(vw-sw)/2}
+   else{sh=vw/ratio;sy=(vh-sh)/2}
+   ctx.drawImage(video,sx,sy,sw,sh,0,0,720,1280);
   }
-
-  if(recorder && recorder.state === "recording"){
-    animation = requestAnimationFrame(drawFrame);
-  }
+ }
+ if(recorder&&recorder.state==="recording")animation=requestAnimationFrame(drawFrame);
 }
 
 async function startShorts(){
-  if(!video.src){
-    alert("पहले Gallery से वीडियो अपलोड करें।");
-    return;
+ if(!video.src){alert("पहले वीडियो अपलोड करें");return}
+ if(!window.MediaRecorder||!canvas.captureStream){alert("Browser recording support नहीं करता");return}
+ try{
+  chunks=[];
+  video.currentTime=0;
+  const stream=canvas.captureStream(30);
+  const capture=video.captureStream||video.mozCaptureStream;
+  if(capture){
+   const source=capture.call(video);
+   source.getAudioTracks().forEach(t=>stream.addTrack(t));
   }
-
-  if(!window.MediaRecorder || !canvas.captureStream){
-    alert("आपका ब्राउज़र वीडियो रिकॉर्डिंग सपोर्ट नहीं करता।");
-    return;
-  }
-
-  try{
-    chunks = [];
-    video.currentTime = 0;
-
-    const canvasStream = canvas.captureStream(30);
-    const tracks = [...canvasStream.getVideoTracks()];
-
-    const capture = video.captureStream || video.mozCaptureStream;
-    if(capture){
-      const videoStream = capture.call(video);
-      tracks.push(...videoStream.getAudioTracks());
-    }
-
-    const finalStream = new MediaStream(tracks);
-
-    let mime = "video/webm";
-    if(MediaRecorder.isTypeSupported("video/webm;codecs=vp9,opus")){
-      mime = "video/webm;codecs=vp9,opus";
-    }else if(MediaRecorder.isTypeSupported("video/webm;codecs=vp8,opus")){
-      mime = "video/webm;codecs=vp8,opus";
-    }
-
-    recorder = new MediaRecorder(finalStream,{mimeType:mime});
-
-    recorder.ondataavailable = e => {
-      if(e.data.size > 0) chunks.push(e.data);
-    };
-
-    recorder.onstop = () => {
-      cancelAnimationFrame(animation);
-      const blob = new Blob(chunks,{type:"video/webm"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "gopal-shorts.webm";
-      a.click();
-
-      document.getElementById("shortStatus").textContent =
-        "Shorts तैयार है! डाउनलोड शुरू हो गया।";
-    };
-
-    video.onended = () => {
-      if(recorder && recorder.state === "recording"){
-        recorder.stop();
-      }
-    };
-
-    await video.play();
-    recorder.start();
-    drawFrame();
-
-    document.getElementById("shortStatus").textContent =
-      "Recording चालू है...";
-
-  }catch(e){
-    alert("Recording शुरू नहीं हुई: " + e.message);
-  }
+  const mime=MediaRecorder.isTypeSupported("video/webm;codecs=vp9,opus")?"video/webm;codecs=vp9,opus":"video/webm";
+  recorder=new MediaRecorder(stream,{mimeType:mime});
+  recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+  recorder.onstop=()=>{
+   cancelAnimationFrame(animation);
+   const blob=new Blob(chunks,{type:"video/webm"});
+   const url=URL.createObjectURL(blob);
+   const a=document.createElement("a");
+   a.href=url;a.download="gopal-shorts.webm";a.click();
+   document.getElementById("shortStatus").textContent="Shorts डाउनलोड शुरू हो गया!";
+  };
+  video.onended=()=>{if(recorder&&recorder.state==="recording")recorder.stop()};
+  await video.play();
+  recorder.start();
+  drawFrame();
+  document.getElementById("shortStatus").textContent="Recording चालू है...";
+ }catch(e){alert("Recording Error: "+e.message)}
 }
 
 function stopShorts(){
-  if(recorder && recorder.state === "recording"){
-    recorder.stop();
-  }
+ if(recorder&&recorder.state==="recording")recorder.stop();
 }
 
 async function makeCaption(){
-  const text = document.getElementById("caption").value;
-  if(!text.trim()){
-    alert("पहले टेक्स्ट लिखें।");
-    return;
-  }
-
-  try{
-    const r = await fetch(API + "/api/caption",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({text,language:"Hindi"})
-    });
-    const d = await r.json();
-    document.getElementById("result").textContent =
-      d.caption || d.message || "Error";
-  }catch(e){
-    document.getElementById("result").textContent = "API Offline";
-  }
+ const text=document.getElementById("captionText").value;
+ if(!text.trim()){alert("पहले टेक्स्ट लिखें");return}
+ try{
+  const r=await fetch(API+"/api/caption",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,language:"Hindi"})});
+  const d=await r.json();
+  document.getElementById("result").textContent=d.caption||d.message||"Error";
+ }catch(e){document.getElementById("result").textContent="API Offline"}
 }
 
 function speak(){
-  const text = document.getElementById("voice").value;
-  if(!text.trim()){
-    alert("पहले टेक्स्ट लिखें।");
-    return;
-  }
-
-  if(!("speechSynthesis" in window)){
-    alert("आपका ब्राउज़र Voice सपोर्ट नहीं करता।");
-    return;
-  }
-
-  const speech = new SpeechSynthesisUtterance(text);
-  speech.lang = "hi-IN";
-  speechSynthesis.speak(speech);
+ const text=document.getElementById("voiceText").value;
+ if(!text.trim()){alert("पहले टेक्स्ट लिखें");return}
+ if(!("speechSynthesis" in window)){alert("Voice support नहीं है");return}
+ const s=new SpeechSynthesisUtterance(text);
+ s.lang="hi-IN";
+ speechSynthesis.speak(s);
 }
 </script>
 </body>
