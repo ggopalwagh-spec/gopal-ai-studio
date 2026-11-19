@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gopal AI Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101014;color:white;font-family:Arial,sans-serif}
+header{background:#e52235;padding:22px;text-align:center}
+header h1{margin:0}
+main{max-width:700px;margin:auto;padding:20px}
+h2{text-align:center}
+.card{background:#22222a;padding:20px;margin:14px 0;border-radius:14px}
+button{background:#ed2639;color:white;border:0;padding:13px;border-radius:9px;width:100%;font-size:16px}
+input,textarea{width:100%;padding:12px;margin:10px 0;border-radius:8px;border:0}
+.status{text-align:center;color:#ffcc55}
+</style>
+</head>
+<body>
+<header>
+<h1>🔥 GOPAL AI STUDIO</h1>
+<p>Your Free AI Video Platform</p>
+</header>
+
+<main>
+<h2>Create Videos With AI</h2>
+<p class="status" id="status">Checking API...</p>
+
+<div class="card">
+<h3>🎬 Video to Shorts</h3>
+<input type="file" accept="video/*">
+<button onclick="alert('Video processing will be added next')">Create Shorts</button>
+</div>
+
+<div class="card">
+<h3>📝 Hindi Auto Caption</h3>
+<textarea id="caption" placeholder="Yahan apna text likhen"></textarea>
+<button onclick="makeCaption()">Generate Caption</button>
+<p id="result"></p>
+</div>
+
+<div class="card">
+<h3>🎤 AI Voice</h3>
+<textarea id="voice" placeholder="Voice ke liye text likhen"></textarea>
+<button onclick="speak()">Generate Voice</button>
+</div>
+
+<div class="card">
+<h3>🤖 Text to Video</h3>
+<textarea placeholder="Apne video ka idea likhen"></textarea>
+<button onclick="alert('AI video generation will be added next')">Generate Video</button>
+</div>
+</main>
+
+<script>
+const API="https://my-ai-video-api.onrender.com";
+
+fetch(API+"/api/status")
+.then(r=>r.json())
+.then(d=>document.getElementById("status").innerText="API Connected ✓")
+.catch(()=>document.getElementById("status").innerText="API Offline");
+
+async function makeCaption(){
+ const text=document.getElementById("caption").value;
+ if(!text)return alert("Please enter text");
+ const r=await fetch(API+"/api/caption",{
+ method:"POST",
+ headers:{"Content-Type":"application/json"},
+ body:JSON.stringify({text,language:"Hindi"})
+ });
+ const d=await r.json();
+ document.getElementById("result").innerText=d.caption||d.message;
+}
+
+function speak(){
+ const text=document.getElementById("voice").value;
+ if(!text)return alert("Please enter text");
+ const speech=new SpeechSynthesisUtterance(text);
+ speech.lang="hi-IN";
+ speechSynthesis.speak(speech);
+}
+</script>
+</body>
+</html>
